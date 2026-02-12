@@ -1,0 +1,14 @@
+
+## PENSION
+
+if (nordnet|saxo)
+    account2 assets:investments
+
+if pension
+    account2 assets:pension
+
+if ratepension
+    account2 assets:pension:ratepension
+
+if assets:pension
+    description %description ; type:fixed

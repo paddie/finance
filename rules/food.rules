@@ -1,0 +1,11 @@
+if (Lidl|kvickly|netto|coop365|SuperB|"REMA 1000"|"Dagli Brugsen")
+    account2 expenses:food:groceries
+
+if ("tipster.dk"|restaurant)
+    account2 expenses:food:restaurants
+
+if (cafe|bager|bakery)
+    account2 expenses:food:cafe_bakeries
+
+if expenses:food
+    description %description ; type:variable

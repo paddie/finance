@@ -1,0 +1,18 @@
+
+## HUS ##
+
+if %category Bolig
+    account2 expenses:house
+
+if (huslån|"Nedbetaling husl�n"|husl�n)
+    account2 expenses:house:mortgage
+    
+
+if ("bauhaus" | "jem og fix" | silvan)
+    account2 expenses:house:renovation
+
+if (ikea)
+    account2 expenses:house:furnishings
+
+if SpidsKloak
+    account1 expenses:house:renovation:kloak

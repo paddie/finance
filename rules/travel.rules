@@ -1,0 +1,7 @@
+## TRAVEL
+if "trip.com"
+    account2 expenses:travel:lodging:trip_com
+
+if "airbnb"
+    account2 expenses:travel:lodging:airbnb
+

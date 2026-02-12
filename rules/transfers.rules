@@ -1,0 +1,16 @@
+if ("Til Dagligvarer"|"Dagligvarer - PRM")
+    account2 assets.transfers
+
+if Husl�n - PRM
+    account2 assets.transfers
+
+# til LA
+if Nedbetaling husl�n - PRM
+    account2 expenses:house:mortgage
+
+if "Spotify, iCloud - PRM"
+    account2 assets.transfers
+
+if ("Ejendommensskat - PRM"|"El, vand og varme - PRM"|"Hus, indboforsikr - PRM"|"Bilforsikr, afgift - PRM"|"Tandforsikring - PRM"|"Vuggestue - PRM")
+    account2 assets.transfers
+

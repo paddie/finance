@@ -1,0 +1,28 @@
+## subscriptions
+
+if ("DISNEY PLUS"|netflix|"hbo nordic")
+    account2 expenses:subscriptions:streaming
+    description %description ; type:fixed
+
+if (arca)
+    account2 expenses:subscriptions:fitness
+    description %description ; type:fixed
+
+if audible
+    account2 expenses:subscriptions:audible
+    description %description ; type:fixed
+
+if Spotify
+    account2 expensees:subscriptions:spotify
+    description %description ; type:fixed
+
+## INTERNET
+if "hiper.dk"
+    account2 expenses:subscriptions:internet
+    description %description ; type:fixed
+
+## TELEFON
+if "3 Danmark"
+    account2 expenses:subscriptions:phone
+    description %description ; type:fixed
+

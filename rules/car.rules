@@ -1,0 +1,8 @@
+
+## BIL
+
+if ("Apcoa Parking"|"EasyPark"|"PARKMAN")
+    account2 expenses:car:parking
+
+if Autotal
+    account2 expenses:car:service
