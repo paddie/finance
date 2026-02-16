@@ -1,7 +1,20 @@
 ## TRAVEL
-if "trip.com"
+if trip\.com
     account2 expenses:travel:lodging:trip_com
 
-if "airbnb"
+if airbnb
     account2 expenses:travel:lodging:airbnb
 
+if Udl\. kortbetaling,
+    account2 expenses:travel:cash
+
+# TRANSPORT
+
+if (DSB APP|SKANETRAFIKEN APP|DSB UDLAND)
+    account2 expenses:transport:bus_train
+
+if BROBIZZ.COM
+    account2 expenses:travel:bridge
+
+if (uber|taxi|taxa)
+    account2 expenses:transport:taxi
