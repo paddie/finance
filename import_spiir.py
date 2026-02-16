@@ -3,6 +3,7 @@
 
 import csv
 import re
+from typing import Optional
 from dataclasses import dataclass
 from datetime import date, datetime
 from decimal import Decimal
@@ -152,7 +153,7 @@ class SpiirRow:
     tags: str
     extraordinary: str
     split_group_id: str
-    custom_date: date | None
+    custom_date: Optional[date]
     currency: str
     original_amount: Decimal
     original_currency: str
@@ -216,7 +217,9 @@ def read_spiir_rows():
                     tags=row.get("Tags", "").strip(),
                     extraordinary=row["Extraordinary"],
                     split_group_id=row.get("SplitGroupId", ""),
-                    custom_date=_parse_date(custom_date_str) if custom_date_str else None,
+                    custom_date=(
+                        _parse_date(custom_date_str) if custom_date_str else None
+                    ),
                     currency=row["Currency"],
                     original_amount=_parse_decimal(row["OriginalAmount"]),
                     original_currency=row["OriginalCurrency"],
@@ -311,7 +314,9 @@ def compute_opening_balances(rows: list[SpiirRow]) -> list[tuple[str, Decimal, d
     return result
 
 
-def write_year_files(rows: list[SpiirRow], opening_balances: list[tuple[str, Decimal, date]]):
+def write_year_files(
+    rows: list[SpiirRow], opening_balances: list[tuple[str, Decimal, date]]
+):
     """Write per-year .bean files."""
     # Build transactions
     txn_by_year: dict[int, list[Transaction]] = {}
@@ -352,7 +357,9 @@ def write_year_files(rows: list[SpiirRow], opening_balances: list[tuple[str, Dec
     return all_years
 
 
-def collect_accounts(rows: list[SpiirRow], opening_balances: list[tuple[str, Decimal, date]]):
+def collect_accounts(
+    rows: list[SpiirRow], opening_balances: list[tuple[str, Decimal, date]]
+):
     """Collect all accounts with their earliest date."""
     accounts: dict[str, date] = {}
 
