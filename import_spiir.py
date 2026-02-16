@@ -3,8 +3,14 @@
 
 import csv
 import re
+from dataclasses import dataclass
 from datetime import date, datetime
+from decimal import Decimal
 from pathlib import Path
+
+from beancount.core.amount import Amount
+from beancount.core.data import Open, Posting, Transaction, new_metadata
+from beancount.parser.printer import format_entry
 
 BASE_DIR = Path(__file__).parent
 SPIIR_DIR = BASE_DIR / "spiir"
@@ -16,7 +22,7 @@ ACCOUNT_MAP = {
     "Primary": "Assets:Checking:Primary",
     "Faste Fællesudgifter": "Assets:Checking:Fixed",
     "Kærestekonto": "Assets:Checking:Dagligvarer",
-    "Opsparing": "Assets:Checking:Opsparing",
+    "Opsparing": "Assets:Savings",
 }
 
 CATEGORY_MAP = {
@@ -50,7 +56,10 @@ CATEGORY_MAP = {
     ("Privatforbrug", "Møbler & boligudstyr"): "Expenses:Shopping:Furniture",
     ("Privatforbrug", "Bar, cafe & restaurant"): "Expenses:Food:Restaurant",
     ("Privatforbrug", "Fastfood & takeaway"): "Expenses:Food:Takeaway",
-    ("Privatforbrug", "Biograf, koncerter & forlystelser"): "Expenses:Entertainment:Events",
+    (
+        "Privatforbrug",
+        "Biograf, koncerter & forlystelser",
+    ): "Expenses:Entertainment:Events",
     ("Privatforbrug", "Film, musik & læsestof"): "Expenses:Entertainment:Media",
     ("Privatforbrug", "Sport & fritid"): "Expenses:Entertainment:Sports",
     ("Privatforbrug", "Hobby & sportsudstyr"): "Expenses:Shopping:Sports",
@@ -70,16 +79,22 @@ CATEGORY_MAP = {
     ("Andre leveomkostninger", "Behandling & læger"): "Expenses:Health:Doctor",
     ("Andre leveomkostninger", "Briller & kontaktlinser"): "Expenses:Health:Vision",
     ("Andre leveomkostninger", "Fagforening & a-kasse"): "Expenses:Insurance:Union",
-    ("Andre leveomkostninger", "Foreninger & kontingenter"): "Expenses:Subscriptions:Memberships",
+    (
+        "Andre leveomkostninger",
+        "Foreninger & kontingenter",
+    ): "Expenses:Subscriptions:Memberships",
     ("Andre leveomkostninger", "Institution"): "Expenses:Kids:Institution",
     ("Andre leveomkostninger", "Livs- & ulykkesforsikring"): "Expenses:Insurance:Life",
-    ("Andre leveomkostninger", "Sundheds- & sygeforsikring"): "Expenses:Insurance:Health",
+    (
+        "Andre leveomkostninger",
+        "Sundheds- & sygeforsikring",
+    ): "Expenses:Insurance:Health",
     ("Andre leveomkostninger", "TV & streaming"): "Expenses:Subscriptions:Streaming",
     ("Andre leveomkostninger", "Telefoni & internet"): "Expenses:Subscriptions:Telecom",
     # Ferie
     ("Ferie", "Ferieaktiviteter"): "Expenses:Travel:Activities",
-    ("Ferie", "Fly & Hotel"): "Expenses:Travel:Transport",
-    ("Ferie", "Billeje"): "Expenses:Travel:Car-Rental",
+    ("Ferie", "Fly & Hotel"): "Expenses:Travel",
+    ("Ferie", "Billeje"): "Expenses:Travel:CarRental",
     ("Ferie", "Rejseforsikring"): "Expenses:Travel:Insurance",
     ("Ferie", "Sommerhus & camping"): "Expenses:Travel:Accommodation",
     # Diverse
@@ -109,165 +124,208 @@ CATEGORY_MAP = {
     ("Pension & Opsparing", "Anden opsparing"): "Assets:Savings:Other",
     # Vis ikke (Exclude)
     ("Vis ikke", "Kontooverførsel"): "Assets:Transfer",
-    ("Vis ikke", "Ignorer"): "Expenses:Uncategorized",
+    ("Vis ikke", "Ignorer"): "Expenses:Other",
     # Empty categories
-    ("", ""): "Expenses:Uncategorized",
+    ("", ""): "Expenses:Other",
 }
 
 
-def parse_date(s: str) -> date:
+@dataclass(frozen=True)
+class SpiirRow:
+    id: str
+    account_id: str
+    account_name: str
+    account_type: str
+    date: date
+    description: str
+    original_description: str
+    main_category_id: str
+    main_category_name: str
+    category_id: str
+    category_name: str
+    category_type: str
+    expense_type: str
+    amount: Decimal
+    balance: Decimal
+    counter_entry_id: str
+    comment: str
+    tags: str
+    extraordinary: str
+    split_group_id: str
+    custom_date: date | None
+    currency: str
+    original_amount: Decimal
+    original_currency: str
+
+
+def _parse_date(s: str) -> date:
     """Parse DD-MM-YYYY to date."""
     return datetime.strptime(s, "%d-%m-%Y").date()
 
 
-def parse_amount(s: str) -> str:
-    """Parse Danish number format (comma decimal) to string with 2 decimal places."""
+def _parse_decimal(s: str) -> Decimal:
+    """Parse Danish number format (comma decimal, dot thousands) to Decimal."""
     s = s.strip()
     if not s:
-        return "0.00"
-    return f"{float(s.replace('.', '').replace(',', '.')):.2f}"
+        return Decimal("0.00")
+    return Decimal(s.replace(".", "").replace(",", "."))
 
 
 def sanitize_tag(tag: str) -> str:
     """Convert a tag string to a valid beancount tag (ASCII alphanumeric, hyphens, underscores)."""
     tag = tag.strip()
-    # Transliterate common Danish characters
-    for src, dst in [("æ", "ae"), ("ø", "oe"), ("å", "aa"), ("Æ", "Ae"), ("Ø", "Oe"), ("Å", "Aa")]:
+    for src, dst in [
+        ("æ", "ae"),
+        ("ø", "oe"),
+        ("å", "aa"),
+        ("Æ", "Ae"),
+        ("Ø", "Oe"),
+        ("Å", "Aa"),
+    ]:
         tag = tag.replace(src, dst)
     tag = re.sub(r"[^a-zA-Z0-9_-]", "-", tag)
     tag = re.sub(r"-+", "-", tag).strip("-")
-    return tag if tag else None
+    return tag
 
 
-def escape_str(s: str) -> str:
-    """Escape a string for beancount (double quotes)."""
-    return s.replace("\\", "\\\\").replace('"', '\\"')
-
-
-def read_all_transactions():
-    """Read all CSV files and return list of parsed transaction dicts."""
-    transactions = []
+def read_spiir_rows():
+    """Read all CSV files and yield SpiirRow instances."""
     for csv_file in sorted(SPIIR_DIR.glob("*.csv")):
         with open(csv_file, encoding="utf-8-sig") as f:
             reader = csv.DictReader(f, delimiter=";")
             for row in reader:
-                # Use CustomDate if available, otherwise Date
-                date_str = row.get("CustomDate", "").strip() or row["Date"]
-                txn_date = parse_date(date_str)
-
-                amount_str = row["Amount"]
-                amount = parse_amount(amount_str)
-                balance = parse_amount(row["Balance"])
-
-                account_name = row["AccountName"]
-                asset_account = ACCOUNT_MAP.get(account_name, f"Assets:Checking:{account_name}")
-
-                main_cat = row["MainCategoryName"]
-                cat_name = row["CategoryName"]
-                cat_type = row["CategoryType"]
-                category_account = CATEGORY_MAP.get(
-                    (main_cat, cat_name), "Expenses:Uncategorized"
+                custom_date_str = row.get("CustomDate", "").strip()
+                yield SpiirRow(
+                    id=row["Id"],
+                    account_id=row["AccountId"],
+                    account_name=row["AccountName"],
+                    account_type=row["AccountType"],
+                    date=_parse_date(custom_date_str or row["Date"]),
+                    description=row["Description"].strip(),
+                    original_description=row["OriginalDescription"],
+                    main_category_id=row["MainCategoryId"],
+                    main_category_name=row["MainCategoryName"],
+                    category_id=row["CategoryId"],
+                    category_name=row["CategoryName"],
+                    category_type=row["CategoryType"],
+                    expense_type=row["ExpenseType"],
+                    amount=_parse_decimal(row["Amount"]),
+                    balance=_parse_decimal(row["Balance"]),
+                    counter_entry_id=row["CounterEntryId"],
+                    comment=row.get("Comment", ""),
+                    tags=row.get("Tags", "").strip(),
+                    extraordinary=row["Extraordinary"],
+                    split_group_id=row.get("SplitGroupId", ""),
+                    custom_date=_parse_date(custom_date_str) if custom_date_str else None,
+                    currency=row["Currency"],
+                    original_amount=_parse_decimal(row["OriginalAmount"]),
+                    original_currency=row["OriginalCurrency"],
                 )
 
-                description = row["Description"].strip()
-                spiir_id = row["Id"]
 
-                # Parse tags
-                tags = ["spiir"]
-                raw_tags = row.get("Tags", "").strip()
-                if raw_tags:
-                    for t in raw_tags.split(","):
-                        sanitized = sanitize_tag(t)
-                        if sanitized:
-                            tags.append(sanitized)
+def spiir_row_to_transaction(row: SpiirRow) -> Transaction:
+    """Convert a SpiirRow to a beancount Transaction."""
+    asset_account = ACCOUNT_MAP.get(
+        row.account_name, f"Assets:Checking:{row.account_name}"
+    )
+    category_account = CATEGORY_MAP.get(
+        (row.main_category_name, row.category_name), "Expenses:Uncategorized"
+    )
 
-                transactions.append(
-                    {
-                        "date": txn_date,
-                        "description": description,
-                        "category_name": cat_name,
-                        "asset_account": asset_account,
-                        "category_account": category_account,
-                        "amount": amount,
-                        "balance": balance,
-                        "spiir_id": spiir_id,
-                        "tags": tags,
-                        "account_name": account_name,
-                        "raw_amount": amount_str,
-                    }
-                )
-    return transactions
+    tags = {"spiir"}
+    if row.tags:
+        for t in row.tags.split(","):
+            sanitized = sanitize_tag(t)
+            if sanitized:
+                tags.add(sanitized)
 
+    meta = new_metadata("<import>", 0)
+    meta["spiir-id"] = row.id
 
-def compute_opening_balances(transactions):
-    """Compute opening balance for each asset account from the first transaction."""
-    # Group by asset account, find earliest transaction
-    first_by_account = {}
-    for txn in transactions:
-        acct = txn["asset_account"]
-        if acct not in first_by_account or txn["date"] < first_by_account[acct]["date"]:
-            first_by_account[acct] = txn
+    amount = Amount(row.amount.quantize(Decimal("0.01")), "DKK")
+    inv_amount = Amount((-row.amount).quantize(Decimal("0.01")), "DKK")
 
-    opening_balances = []
-    for acct, txn in sorted(first_by_account.items()):
-        # Balance before first transaction = balance_after - amount
-        balance_after = float(txn["balance"])
-        amount = float(txn["raw_amount"].replace(".", "").replace(",", "."))
-        opening = balance_after - amount
-        opening_balances.append(
-            {
-                "date": txn["date"],
-                "account": acct,
-                "amount": f"{opening:.2f}",
-            }
-        )
-    return opening_balances
-
-
-def format_transaction(txn):
-    """Format a single transaction as beancount text."""
-    tags_str = " ".join(f"#{t}" for t in txn["tags"])
-    payee = escape_str(txn["description"])
-    narration = escape_str(txn["category_name"])
-    amount = txn["amount"]
-    # Inverse amount for the category posting
-    inv_amount = f"{-float(amount):.2f}"
-
-    lines = [
-        f'{txn["date"]} * "{payee}" "{narration}" {tags_str}',
-        f'  spiir-id: "{txn["spiir_id"]}"',
-        f"  {txn['asset_account']}  {amount} DKK",
-        f"  {txn['category_account']}  {inv_amount} DKK",
+    postings = [
+        Posting(asset_account, amount, None, None, None, None),
+        Posting(category_account, inv_amount, None, None, None, None),
     ]
-    return "\n".join(lines)
+
+    return Transaction(
+        meta=meta,
+        date=row.date,
+        flag="*",
+        payee=row.description,
+        narration=row.category_name,
+        tags=frozenset(tags),
+        links=frozenset(),
+        postings=postings,
+    )
 
 
-def format_opening_balance(ob):
-    """Format an opening balance transaction."""
-    inv = f"{-float(ob['amount']):.2f}"
-    lines = [
-        f'{ob["date"]} * "Opening Balance" "" #spiir',
-        f"  {ob['account']}  {ob['amount']} DKK",
-        f"  Equity:Opening-Balances  {inv} DKK",
+def make_opening_balance(account: str, amount: Decimal, d: date) -> Transaction:
+    """Build an opening balance Transaction."""
+    meta = new_metadata("<import>", 0)
+    qty = amount.quantize(Decimal("0.01"))
+    postings = [
+        Posting(account, Amount(qty, "DKK"), None, None, None, None),
+        Posting("Equity:Opening-Balances", Amount(-qty, "DKK"), None, None, None, None),
     ]
-    return "\n".join(lines)
+    return Transaction(
+        meta=meta,
+        date=d,
+        flag="*",
+        payee="Opening Balance",
+        narration="",
+        tags=frozenset({"spiir"}),
+        links=frozenset(),
+        postings=postings,
+    )
 
 
-def write_year_files(transactions, opening_balances):
+def make_open_directive(account: str, d: date) -> Open:
+    """Build an Open directive."""
+    return Open(
+        meta=new_metadata("<import>", 0),
+        date=d,
+        account=account,
+        currencies=["DKK"],
+        booking=None,
+    )
+
+
+def compute_opening_balances(rows: list[SpiirRow]) -> list[tuple[str, Decimal, date]]:
+    """Compute opening balance for each asset account from the first transaction.
+
+    Returns list of (account, opening_amount, date) tuples.
+    """
+    first_by_account: dict[str, SpiirRow] = {}
+    for row in rows:
+        acct = ACCOUNT_MAP.get(row.account_name, f"Assets:Checking:{row.account_name}")
+        if acct not in first_by_account or row.date < first_by_account[acct].date:
+            first_by_account[acct] = row
+
+    result = []
+    for acct, row in sorted(first_by_account.items()):
+        opening = row.balance - row.amount
+        result.append((acct, opening, row.date))
+    return result
+
+
+def write_year_files(rows: list[SpiirRow], opening_balances: list[tuple[str, Decimal, date]]):
     """Write per-year .bean files."""
-    # Group transactions by year
-    by_year = {}
-    for txn in transactions:
-        year = txn["date"].year
-        by_year.setdefault(year, []).append(txn)
+    # Build transactions
+    txn_by_year: dict[int, list[Transaction]] = {}
+    for row in rows:
+        txn = spiir_row_to_transaction(row)
+        txn_by_year.setdefault(row.date.year, []).append(txn)
 
-    # Group opening balances by year
-    ob_by_year = {}
-    for ob in opening_balances:
-        year = ob["date"].year
-        ob_by_year.setdefault(year, []).append(ob)
+    # Build opening balance transactions grouped by year
+    ob_by_year: dict[int, list[Transaction]] = {}
+    for acct, amount, d in opening_balances:
+        ob_txn = make_opening_balance(acct, amount, d)
+        ob_by_year.setdefault(d.year, []).append(ob_txn)
 
-    all_years = sorted(set(list(by_year.keys()) + list(ob_by_year.keys())))
+    all_years = sorted(set(list(txn_by_year.keys()) + list(ob_by_year.keys())))
 
     for year in all_years:
         path = BASE_DIR / f"{year}.bean"
@@ -275,62 +333,67 @@ def write_year_files(transactions, opening_balances):
             f.write(f"; Spiir import for {year}\n")
             f.write(f"; Generated by import_spiir.py\n\n")
 
-            # Opening balances first
-            for ob in sorted(ob_by_year.get(year, []), key=lambda x: x["date"]):
-                f.write(format_opening_balance(ob))
-                f.write("\n\n")
+            for ob in sorted(ob_by_year.get(year, []), key=lambda t: t.date):
+                f.write(format_entry(ob))
+                f.write("\n")
 
-            # Transactions sorted by date, then by spiir-id for stability
             year_txns = sorted(
-                by_year.get(year, []), key=lambda x: (x["date"], x["spiir_id"])
+                txn_by_year.get(year, []),
+                key=lambda t: (t.date, t.meta.get("spiir-id", "")),
             )
             for txn in year_txns:
-                f.write(format_transaction(txn))
-                f.write("\n\n")
+                f.write(format_entry(txn))
+                f.write("\n")
 
-        print(f"  Wrote {path.name}: {len(ob_by_year.get(year, []))} opening balances, {len(by_year.get(year, []))} transactions")
+        print(
+            f"  Wrote {path.name}: {len(ob_by_year.get(year, []))} opening balances, {len(txn_by_year.get(year, []))} transactions"
+        )
 
     return all_years
 
 
-def collect_accounts(transactions, opening_balances):
+def collect_accounts(rows: list[SpiirRow], opening_balances: list[tuple[str, Decimal, date]]):
     """Collect all accounts with their earliest date."""
-    accounts = {}
+    accounts: dict[str, date] = {}
 
-    def track(account, d):
+    def track(account: str, d: date):
         if account not in accounts or d < accounts[account]:
             accounts[account] = d
 
-    for txn in transactions:
-        track(txn["asset_account"], txn["date"])
-        track(txn["category_account"], txn["date"])
+    for row in rows:
+        asset_acct = ACCOUNT_MAP.get(
+            row.account_name, f"Assets:Checking:{row.account_name}"
+        )
+        cat_acct = CATEGORY_MAP.get(
+            (row.main_category_name, row.category_name), "Expenses:Uncategorized"
+        )
+        track(asset_acct, row.date)
+        track(cat_acct, row.date)
 
-    for ob in opening_balances:
-        track(ob["account"], ob["date"])
-        track("Equity:Opening-Balances", ob["date"])
+    for acct, _, d in opening_balances:
+        track(acct, d)
+        track("Equity:Opening-Balances", d)
 
     return accounts
 
 
-def update_main_bean(all_years, accounts):
+def update_main_bean(all_years, accounts: dict[str, date]):
     """Update main.bean with includes and open directives."""
     lines = []
 
-    # Header
     lines.append('option "operating_currency" "DKK"')
     lines.append('option "booking_method" "FIFO"')
     lines.append("")
 
-    # Include directives
     lines.append("; --- Spiir imports ---")
     for year in sorted(all_years):
         lines.append(f'include "{year}.bean"')
     lines.append("")
 
-    # Open directives for all accounts
     lines.append("; --- Spiir accounts ---")
     for account, earliest_date in sorted(accounts.items()):
-        lines.append(f"{earliest_date} open {account} DKK")
+        directive = make_open_directive(account, earliest_date)
+        lines.append(format_entry(directive).rstrip())
     lines.append("")
 
     MAIN_BEAN.write_text("\n".join(lines), encoding="utf-8")
@@ -339,19 +402,19 @@ def update_main_bean(all_years, accounts):
 
 def main():
     print("Reading Spiir CSVs...")
-    transactions = read_all_transactions()
-    print(f"  Found {len(transactions)} transactions")
+    rows = list(read_spiir_rows())
+    print(f"  Found {len(rows)} transactions")
 
     print("Computing opening balances...")
-    opening_balances = compute_opening_balances(transactions)
-    for ob in opening_balances:
-        print(f"  {ob['account']}: {ob['amount']} DKK on {ob['date']}")
+    opening_balances = compute_opening_balances(rows)
+    for acct, amount, d in opening_balances:
+        print(f"  {acct}: {amount.quantize(Decimal('0.01'))} DKK on {d}")
 
     print("Writing year files...")
-    all_years = write_year_files(transactions, opening_balances)
+    all_years = write_year_files(rows, opening_balances)
 
     print("Collecting accounts...")
-    accounts = collect_accounts(transactions, opening_balances)
+    accounts = collect_accounts(rows, opening_balances)
     print(f"  Found {len(accounts)} unique accounts")
 
     print("Updating main.bean...")
