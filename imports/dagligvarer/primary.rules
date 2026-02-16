@@ -1,0 +1,69 @@
+skip 1
+
+decimal-mark ,
+# csv formatting
+separator ;
+
+account1 assets:checking
+
+fields date, category, subcategory, text, amount, -, bank_status, reconciled
+
+amount %amount DKK
+# balance2 %balance
+
+description %subcategory (%text)
+# d = day, m = month, y = year (4 digits)
+date-format %d.%m.%Y
+status !
+comment type:variable
+
+if .
+    account2 expenses:unclassified
+
+if %bank_status Udført
+    status *
+
+# transfer rules
+if  - PRM
+    account2 expenses:fastefælles
+    comment type:fixed
+
+if (Til Dagligvarer)
+    account2 assets:dagligvarer
+    comment type:variable
+
+if (Dagligvarer - PRM)
+    account2 assets:dagligvarer
+    comment type:fixed
+
+include car.rules
+include children.rules
+include food.rules
+include pension.rules
+include travel.rules
+include shopping.rules
+include insurance.rules
+include sport.rules
+include house.rules
+include subscriptions.rules
+include primary_transfers.rules
+
+## LØN
+
+if %text LØNOVERFØRSEL
+    account2 income:salary
+
+if Børne- og Ungeydelse
+    account2 income:kids:børnepenge
+
+if apotek
+    account2 expenses:pharmacy
+
+## ANDET
+
+if SAUNASTUDIE
+    account2 expenses:health
+
+if Tandlægeselskabet
+    account2 expenses:health:dentist
+

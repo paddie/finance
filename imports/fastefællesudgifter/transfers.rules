@@ -1,0 +1,5 @@
+account1 assets:dagligvarer
+
+#if (Ejendommensskat - PRM|El, vand og varme - PRM|Hus, indboforsikr - PRM|Bilforsikr, afgift - PRM|Tandforsikring - PRM|Vuggestue - PRM|Børnepenge - PRM|Renovation - PRM|Sundhedsforsikring - PRM)
+#    account2 assets:transfers
+#    comment type:fixed
