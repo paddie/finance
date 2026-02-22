@@ -1,5 +1,0 @@
-if (Lidl|kvickly|netto|coop365|365discount|SuperB|REMA 1000|Dagli Brugsen|7-Eleven|Meny|SUPERMERCADOS|Ume Asian|MARKET|Den Kinesiske Køb|DENKINESISKEKOEBMAND|KFT Koebenhavn|Kft Jylland-KBH|Supermarked)
-    account2 expenses:food:groceries
-
-if (tipster|restaurant|cafe|bager|bakery|coffee|Andersen og Maillard|Kantine|Aurora|Espresso|mcd|kebab|burger|hotdog)
-    account2 expenses:food:cafe_restaurants

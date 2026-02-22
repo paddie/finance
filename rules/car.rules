@@ -1,6 +1,0 @@
-
-if (A-H Cykler|cykel|bike)
-    account2 expenses:bike:maintenance
-
-if freetrailer
-    account2 expenses:car:freetrailer
