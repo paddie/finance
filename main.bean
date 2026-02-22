@@ -1,18 +1,6 @@
 option "operating_currency" "DKK"
 option "booking_method" "FIFO"
 
-; --- Spiir imports ---
-include "2016.bean"
-include "2017.bean"
-include "2018.bean"
-include "2019.bean"
-include "2020.bean"
-include "2021.bean"
-include "2022.bean"
-include "2023.bean"
-include "2024.bean"
-include "2025.bean"
-
 ; --- Spiir accounts ---
 2021-07-25 open Assets:Checking:Dagligvarer                     DKK
 2020-09-21 open Assets:Checking:Fixed                           DKK
@@ -46,6 +34,7 @@ include "2025.bean"
 2016-06-15 open Expenses:Health:Doctor                          DKK
 2016-05-30 open Expenses:Health:Pharmacy                        DKK
 2016-01-30 open Expenses:Health:Vision                          DKK
+2022-12-14 open Expenses:House                                  DKK
 2022-12-14 open Expenses:House:Alarm                            DKK
 2019-12-04 open Expenses:House:Association                      DKK
 2016-01-30 open Expenses:House:Contents-Insurance               DKK
@@ -60,9 +49,11 @@ include "2025.bean"
 2020-01-02 open Expenses:Insurance:Health                       DKK
 2020-11-16 open Expenses:Insurance:Life                         DKK
 2016-02-05 open Expenses:Insurance:Union                        DKK
+2020-11-01 open Expenses:Kids                                   DKK
 2020-11-01 open Expenses:Kids:Baby                              DKK
 2022-04-01 open Expenses:Kids:Institution                       DKK
 2016-07-16 open Expenses:Kids:Toys                              DKK
+2016-07-16 open Expenses:Kids:Taxes                             DKK
 2018-06-16 open Expenses:Loans:Consumer                         DKK
 2016-03-31 open Expenses:Loans:Interest                         DKK
 2017-03-02 open Expenses:Loans:Private                          DKK
@@ -90,6 +81,7 @@ include "2025.bean"
 2016-01-12 open Expenses:Travel:Activities                      DKK
 2020-07-25 open Expenses:Travel:CarRental                       DKK
 2019-12-04 open Expenses:Travel:Insurance                       DKK
+2019-12-04 open Expenses:Travel:Cash                            DKK
 2022-01-20 open Income:ChildBenefit                             DKK
 2019-10-01 open Income:Holiday                                  DKK
 2023-12-29 open Income:Interest                                 DKK
@@ -97,3 +89,16 @@ include "2025.bean"
 2016-01-28 open Income:Salary                                   DKK
 2016-04-12 open Income:Tax:Refund                               DKK
 2022-01-04 open Income:Unemployment                             DKK
+
+; --- Spiir imports ---
+include "2016.bean"
+include "2017.bean"
+include "2018.bean"
+include "2019.bean"
+include "2020.bean"
+include "2021.bean"
+include "2022.bean"
+include "2023.bean"
+include "2024.bean"
+include "2025.bean"
+

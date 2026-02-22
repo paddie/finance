@@ -36,3 +36,8 @@ if READWISE
 
 if GOOGLE *Google Nest
     account2 expenses:subscriptions.google_nest
+
+
+if audible
+    account2 expenses:subscriptions:audible
+    comment type:fixed

@@ -444,7 +444,7 @@
 2025-01-07 * "Quooker Skandinavien Roedovre" "" #spiir
   spiir-id: "638813513346462429"
   Assets:Checking:Dagligvarer  -1590.00 DKK
-  Expenses:Other                1590.00 DKK
+  Expenses:House:Renovation               1590.00 DKK
 
 2025-01-07 * "Osterbrogade 2100 Kobenhav" "Fastfood & takeaway" #spiir
   spiir-id: "638813513346462731"
@@ -11311,10 +11311,10 @@
   Assets:Checking:Primary  -500.00 DKK
   Expenses:Other            500.00 DKK
 
-2025-12-08 * "SKATTEFORVALTNING Ro" "" #spiir
+2025-12-08 * "SKATTEFORVALTNING Ronja" "" #spiir
   spiir-id: "639007752200230513"
   Assets:Checking:Primary  -682.00 DKK
-  Expenses:Other            682.00 DKK
+  Expenses:Kids:Taxes            682.00 DKK
 
 2025-12-08 * "Fd Hvidovre AmBa" "El, vand, varme & renovation" #spiir
   spiir-id: "639007752339575378"

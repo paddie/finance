@@ -2,10 +2,6 @@
 if AMZN
     account2 expenses:shopping:amazon
 
-if audible
-    account2 expenses:subscriptions:audible
-    comment type:fixed
-
 if XEROSHOES
     account2 expenses:shopping:shoes
 

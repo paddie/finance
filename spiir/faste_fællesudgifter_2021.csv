@@ -1,0 +1,135 @@
+﻿"Id";"AccountId";"AccountName";"AccountType";"Date";"Description";"OriginalDescription";"MainCategoryId";"MainCategoryName";"CategoryId";"CategoryName";"CategoryType";"ExpenseType";"Amount";"Balance";"CounterEntryId";"Comment";"Tags";"Extraordinary";"SplitGroupId";"CustomDate";"Currency";"OriginalAmount";"OriginalCurrency"
+"637674667688268924";"637674667682955970";"Faste Fællesudgifter";"Consumption";"04-01-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"4585,38";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268925";"637674667682955970";"Faste Fællesudgifter";"Consumption";"04-01-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4654,38";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268926";"637674667682955970";"Faste Fællesudgifter";"Consumption";"04-01-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4154,38";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268927";"637674667682955970";"Faste Fællesudgifter";"Consumption";"04-01-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-1633,17";"3654,38";"";"";"";"No";"";"";"DKK";"-1633,17";"DKK"
+"637674667688268923";"637674667682955970";"Faste Fællesudgifter";"Consumption";"05-01-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-257,30";"4328,08";"";"";"";"No";"";"";"DKK";"-257,30";"DKK"
+"637674667688268922";"637674667682955970";"Faste Fællesudgifter";"Consumption";"19-01-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"4204,08";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268916";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-02-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"3783,27";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268917";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-02-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"3283,27";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268918";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-02-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"2783,27";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268919";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-02-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-161,15";"2852,27";"";"";"";"No";"";"";"DKK";"-161,15";"DKK"
+"637674667688268920";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-02-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-529,15";"3013,42";"";"";"";"No";"";"";"DKK";"-529,15";"DKK"
+"637674667688268921";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-02-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-661,51";"3542,57";"";"";"";"No";"";"";"DKK";"-661,51";"DKK"
+"637674667688268915";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-02-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"3534,27";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637674667688268914";"637674667682955970";"Faste Fællesudgifter";"Consumption";"19-02-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"3410,27";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268911";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-03-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4341,27";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268912";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-03-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"3841,27";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268913";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-03-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"3341,27";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268910";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-03-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"4092,27";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637674667688268909";"637674667682955970";"Faste Fællesudgifter";"Consumption";"19-03-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"3968,27";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268908";"637674667682955970";"Faste Fællesudgifter";"Consumption";"31-03-2021";"Interest, total balance";"Interest, total balance
+EndToEndID: NOTPROVIDED";"19";"Lån & gæld";"181";"Udlånsrenter";"Expense";"Variable";"-0,98";"3967,29";"";"";"";"No";"";"";"DKK";"-0,98";"DKK"
+"637674667688268905";"637674667682955970";"Faste Fællesudgifter";"Consumption";"06-04-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4898,29";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268906";"637674667682955970";"Faste Fællesudgifter";"Consumption";"06-04-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4398,29";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268907";"637674667682955970";"Faste Fællesudgifter";"Consumption";"06-04-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"3898,29";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268904";"637674667682955970";"Faste Fællesudgifter";"Consumption";"07-04-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"4649,29";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637674667688268903";"637674667682955970";"Faste Fællesudgifter";"Consumption";"20-04-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"4525,29";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268898";"637674667682955970";"Faste Fællesudgifter";"Consumption";"03-05-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4365,63";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268899";"637674667682955970";"Faste Fællesudgifter";"Consumption";"03-05-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"3865,63";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268900";"637674667682955970";"Faste Fællesudgifter";"Consumption";"03-05-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"3365,63";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268901";"637674667682955970";"Faste Fællesudgifter";"Consumption";"03-05-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-561,51";"3434,63";"";"";"";"No";"";"";"DKK";"-561,51";"DKK"
+"637674667688268902";"637674667682955970";"Faste Fællesudgifter";"Consumption";"03-05-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-529,15";"3996,14";"";"";"";"No";"";"";"DKK";"-529,15";"DKK"
+"637674667688268897";"637674667682955970";"Faste Fællesudgifter";"Consumption";"04-05-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"4116,63";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637674667688268896";"637674667682955970";"Faste Fællesudgifter";"Consumption";"19-05-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"3992,63";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268893";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-06-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4923,63";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268894";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-06-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4423,63";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268895";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-06-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"3923,63";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268892";"637674667682955970";"Faste Fællesudgifter";"Consumption";"03-06-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"4674,63";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637674667688268891";"637674667682955970";"Faste Fællesudgifter";"Consumption";"21-06-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"4550,63";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268890";"637674667682955970";"Faste Fællesudgifter";"Consumption";"30-06-2021";"Interest, total balance";"Interest, total balance
+EndToEndID: NOTPROVIDED";"19";"Lån & gæld";"181";"Udlånsrenter";"Expense";"Variable";"-1,13";"4549,50";"";"";"";"No";"";"";"DKK";"-1,13";"DKK"
+"637674667688268887";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-07-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"5480,50";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268888";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-07-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4980,50";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268889";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-07-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"4480,50";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268886";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-07-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"5231,50";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637674667688268885";"637674667682955970";"Faste Fællesudgifter";"Consumption";"20-07-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"5107,50";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268880";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-08-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4947,84";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268881";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-08-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4447,84";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268882";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-08-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"3947,84";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268883";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-08-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-529,15";"4016,84";"";"";"";"No";"";"";"DKK";"-529,15";"DKK"
+"637674667688268884";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-08-2021";"Tryg";"Tryg
+EndToEndID: NOTPROVIDED";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-561,51";"4545,99";"";"";"";"No";"";"";"DKK";"-561,51";"DKK"
+"637674667688268879";"637674667682955970";"Faste Fællesudgifter";"Consumption";"03-08-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"4698,84";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637674667688268878";"637674667682955970";"Faste Fællesudgifter";"Consumption";"19-08-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"4574,84";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637674667688268875";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-09-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"5505,84";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268876";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-09-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"5005,84";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637674667688268877";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-09-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"4505,84";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637674667688268874";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-09-2021";"telia.dk";"telia.dk
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"5256,84";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637677183167730108";"637674667682955970";"Faste Fællesudgifter";"Consumption";"20-09-2021";"SpotifySE";"SpotifySE
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"5132,84";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637686678257903864";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-10-2021";"Faste fællesudgifter";"Faste fællesudgifter
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"6063,84";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637686678257903865";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-10-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric
+EndToEndID: NOTPROVIDED";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"5563,84";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637686678257903866";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-10-2021";"iCloud";"iCloud
+EndToEndID: NOTPROVIDED";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"5063,84";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637690059647076263";"637674667682955970";"Faste Fællesudgifter";"Consumption";"05-10-2021";"telia.dk";"telia.dk";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"5814,84";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637702171162404989";"637674667682955970";"Faste Fællesudgifter";"Consumption";"19-10-2021";"Spotify";"Spotify";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"5690,84";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637720473351611740";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-11-2021";"Faste fællesudgifter";"Faste fællesudgifter";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"5291,72";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637720473351611741";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-11-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4791,72";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637720473351611742";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-11-2021";"iCloud";"iCloud";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"4291,72";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637720473351611743";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-11-2021";"Tryg";"Tryg";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-59,04";"4360,72";"";"";"";"No";"";"";"DKK";"-59,04";"DKK"
+"637720473351611744";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-11-2021";"Tryg";"Tryg";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-741,93";"4419,76";"";"";"";"No";"";"";"DKK";"-741,93";"DKK"
+"637720473351611745";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-11-2021";"Tryg";"Tryg";"12";"Bolig";"119";"Indbo- & familieforsikring";"Expense";"Fixed";"-529,15";"5161,69";"";"";"";"No";"";"";"DKK";"-529,15";"DKK"
+"637720473351611739";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-11-2021";"telia.dk";"telia.dk";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"5042,72";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637720473351611737";"637674667682955970";"Faste Fællesudgifter";"Consumption";"05-11-2021";"Ida Tandforsikring";"Ida Tandforsikring";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"-620,00";"3802,72";"";"";"";"No";"";"";"DKK";"-620,00";"DKK"
+"637720473351611738";"637674667682955970";"Faste Fællesudgifter";"Consumption";"05-11-2021";"Ida Tandforsikring";"Ida Tandforsikring";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"-620,00";"4422,72";"";"";"";"No";"";"";"DKK";"-620,00";"DKK"
+"637729067085543799";"637674667682955970";"Faste Fællesudgifter";"Consumption";"19-11-2021";"Spotify";"Spotify";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"3678,72";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"
+"637739505431977132";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-12-2021";"Faste fællesudgifter";"Faste fællesudgifter";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4609,72";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637739505431977133";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-12-2021";"Fast Overførsel - Patric";"Fast Overførsel - Patric";"16";"Andre leveomkostninger";"146";"Sundheds- & sygeforsikring";"Expense";"Fixed";"500,00";"4109,72";"";"";"";"No";"";"";"DKK";"500,00";"DKK"
+"637739505431977134";"637674667682955970";"Faste Fællesudgifter";"Consumption";"01-12-2021";"iCloud";"iCloud";"17";"Privatforbrug";"186";"Online services & software";"Expense";"Variable";"-69,00";"3609,72";"";"";"";"No";"";"";"DKK";"-69,00";"DKK"
+"637740282546620997";"637674667682955970";"Faste Fællesudgifter";"Consumption";"02-12-2021";"telia.dk";"telia.dk";"16";"Andre leveomkostninger";"149";"Telefoni & internet";"Expense";"Fixed";"-249,00";"4360,72";"";"";"";"No";"";"";"DKK";"-249,00";"DKK"
+"637748042905634310";"637674667682955970";"Faste Fællesudgifter";"Consumption";"10-12-2021";"Annual Card Fee";"Annual Card Fee";"18";"Diverse";"174";"Bankgebyrer";"Expense";"Variable";"-60,00";"4300,72";"";"";"";"No";"";"";"DKK";"-60,00";"DKK"
+"637781143767368741";"637674667682955970";"Faste Fællesudgifter";"Consumption";"20-12-2021";"Spotify";"Spotify";"17";"Privatforbrug";"163";"Film, musik & læsestof";"Expense";"Variable";"-124,00";"4176,72";"";"";"";"No";"";"";"DKK";"-124,00";"DKK"

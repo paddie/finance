@@ -16,7 +16,6 @@ if spidskloak
     account2 expenses:house:renovation:kloak
     comment type:fixed
 
-
 # til LA
 if Nedbetaling huslån - PRM
     account2 expenses:house:mortgage

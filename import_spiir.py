@@ -3,7 +3,7 @@
 
 import csv
 import re
-from typing import Optional
+from typing import Iterator, Optional
 from dataclasses import dataclass
 from datetime import date, datetime
 from decimal import Decimal
@@ -13,122 +13,14 @@ from beancount.core.amount import Amount
 from beancount.core.data import Open, Posting, Transaction, new_metadata
 from beancount.parser.printer import format_entry
 
+import constants
+import rules
+
 BASE_DIR = Path(__file__).parent
 SPIIR_DIR = BASE_DIR / "spiir"
 MAIN_BEAN = BASE_DIR / "main.bean"
 
 # --- Account mappings ---
-
-ACCOUNT_MAP = {
-    "Primary": "Assets:Checking:Primary",
-    "Faste Fællesudgifter": "Assets:Checking:Fixed",
-    "Kærestekonto": "Assets:Checking:Dagligvarer",
-    "Opsparing": "Assets:Savings",
-}
-
-CATEGORY_MAP = {
-    # Husholdning
-    ("Husholdning", "Dagligvarer"): "Expenses:Food:Groceries",
-    ("Husholdning", "Kantine- & frokostordning"): "Expenses:Food:Canteen",
-    ("Husholdning", "Kiosk, bager & specialbutikker"): "Expenses:Food:Kiosk",
-    # Transport
-    ("Transport", "Bilforsikring & autohjælp"): "Expenses:Car:Insurance",
-    ("Transport", "Brændstof"): "Expenses:Car:Gas",
-    ("Transport", "Parkering"): "Expenses:Car:Parking",
-    ("Transport", "Bus, tog, færge o.l."): "Expenses:Transport:Public",
-    ("Transport", "Taxi"): "Expenses:Transport:Taxi",
-    ("Transport", "Ejerafgift/grøn afgift"): "Expenses:Car:Tax",
-    ("Transport", "Værksted & reservedele"): "Expenses:Car:Service",
-    ("Transport", "Anden transport"): "Expenses:Transport:Other",
-    # Bolig
-    ("Bolig", "Boliglån/husleje"): "Expenses:House:Mortgage",
-    ("Bolig", "El, vand, varme & renovation"): "Expenses:House:Heating",
-    ("Bolig", "Ombygning & vedligehold"): "Expenses:House:Renovation",
-    ("Bolig", "Husforsikring"): "Expenses:House:Insurance",
-    ("Bolig", "Ejendomsskat"): "Expenses:House:Tax",
-    ("Bolig", "Ejerforening"): "Expenses:House:Association",
-    ("Bolig", "Have & planter"): "Expenses:House:Garden",
-    ("Bolig", "Alarmsystem"): "Expenses:House:Alarm",
-    ("Bolig", "Andre boligudgifter"): "Expenses:House:Other",
-    ("Bolig", "Indbo- & familieforsikring"): "Expenses:House:Contents-Insurance",
-    # Privatforbrug
-    ("Privatforbrug", "Tøj, sko & accessories"): "Expenses:Shopping:Clothing",
-    ("Privatforbrug", "Elektronik & computerudstyr"): "Expenses:Shopping:Electronics",
-    ("Privatforbrug", "Møbler & boligudstyr"): "Expenses:Shopping:Furniture",
-    ("Privatforbrug", "Bar, cafe & restaurant"): "Expenses:Food:Restaurant",
-    ("Privatforbrug", "Fastfood & takeaway"): "Expenses:Food:Takeaway",
-    (
-        "Privatforbrug",
-        "Biograf, koncerter & forlystelser",
-    ): "Expenses:Entertainment:Events",
-    ("Privatforbrug", "Film, musik & læsestof"): "Expenses:Entertainment:Media",
-    ("Privatforbrug", "Sport & fritid"): "Expenses:Entertainment:Sports",
-    ("Privatforbrug", "Hobby & sportsudstyr"): "Expenses:Shopping:Sports",
-    ("Privatforbrug", "Frisør & personlig pleje"): "Expenses:Shopping:Personal-Care",
-    ("Privatforbrug", "Gaver & velgørenhed"): "Expenses:Gifts",
-    ("Privatforbrug", "Kontanthævning & check"): "Expenses:Cash",
-    ("Privatforbrug", "Online services & software"): "Expenses:Subscriptions:Software",
-    ("Privatforbrug", "Serviceydelser & rådgivning"): "Expenses:Services",
-    ("Privatforbrug", "Tobak & alkohol"): "Expenses:Food:Alcohol",
-    ("Privatforbrug", "Tips & lotto"): "Expenses:Entertainment:Gambling",
-    ("Privatforbrug", "Andet privatforbrug"): "Expenses:Shopping:Other",
-    ("Privatforbrug", "Babyudstyr"): "Expenses:Kids:Baby",
-    ("Privatforbrug", "Spil & legetøj"): "Expenses:Kids:Toys",
-    ("Privatforbrug", "Hus & havehjælp"): "Expenses:House:Help",
-    # Andre leveomkostninger
-    ("Andre leveomkostninger", "Apotek & medicin"): "Expenses:Health:Pharmacy",
-    ("Andre leveomkostninger", "Behandling & læger"): "Expenses:Health:Doctor",
-    ("Andre leveomkostninger", "Briller & kontaktlinser"): "Expenses:Health:Vision",
-    ("Andre leveomkostninger", "Fagforening & a-kasse"): "Expenses:Insurance:Union",
-    (
-        "Andre leveomkostninger",
-        "Foreninger & kontingenter",
-    ): "Expenses:Subscriptions:Memberships",
-    ("Andre leveomkostninger", "Institution"): "Expenses:Kids:Institution",
-    ("Andre leveomkostninger", "Livs- & ulykkesforsikring"): "Expenses:Insurance:Life",
-    (
-        "Andre leveomkostninger",
-        "Sundheds- & sygeforsikring",
-    ): "Expenses:Insurance:Health",
-    ("Andre leveomkostninger", "TV & streaming"): "Expenses:Subscriptions:Streaming",
-    ("Andre leveomkostninger", "Telefoni & internet"): "Expenses:Subscriptions:Telecom",
-    # Ferie
-    ("Ferie", "Ferieaktiviteter"): "Expenses:Travel:Activities",
-    ("Ferie", "Fly & Hotel"): "Expenses:Travel",
-    ("Ferie", "Billeje"): "Expenses:Travel:CarRental",
-    ("Ferie", "Rejseforsikring"): "Expenses:Travel:Insurance",
-    ("Ferie", "Sommerhus & camping"): "Expenses:Travel:Accommodation",
-    # Diverse
-    ("Diverse", "Bankgebyrer"): "Expenses:Bank:Fees",
-    ("Diverse", "Bøder & afgifter"): "Expenses:Tax:Fines",
-    ("Diverse", "Offentligt gebyr"): "Expenses:Tax:Fees",
-    ("Diverse", "Restskat"): "Expenses:Tax:Back-Tax",
-    ("Diverse", "Rykkergebyrer"): "Expenses:Bank:Late-Fees",
-    ("Diverse", "Ukendt"): "Expenses:Other",
-    # Lån & gæld
-    ("Lån & gæld", "Forbrugslån"): "Expenses:Loans:Consumer",
-    ("Lån & gæld", "Private lån (venner & familie)"): "Expenses:Loans:Private",
-    ("Lån & gæld", "Studielån"): "Expenses:Loans:Student",
-    ("Lån & gæld", "Udlånsrenter"): "Expenses:Loans:Interest",
-    # Indkomst
-    ("Indkomst", "Løn"): "Income:Salary",
-    ("Indkomst", "Børnepenge"): "Income:ChildBenefit",
-    ("Indkomst", "Feriepenge"): "Income:Holiday",
-    ("Indkomst", "Dagpenge/overførselsindkomst"): "Income:Unemployment",
-    ("Indkomst", "Overskydende skat"): "Income:Tax:Refund",
-    ("Indkomst", "Renteindtægter"): "Income:Interest",
-    ("Indkomst", "Anden indkomst"): "Income:Other",
-    # Pension & Opsparing
-    ("Pension & Opsparing", "Pensionsopsparing"): "Assets:Savings:Pension",
-    ("Pension & Opsparing", "Værdipapirshandel"): "Assets:Savings:Investments",
-    ("Pension & Opsparing", "Børneopsparing"): "Assets:Savings:Children",
-    ("Pension & Opsparing", "Anden opsparing"): "Assets:Savings:Other",
-    # Vis ikke (Exclude)
-    ("Vis ikke", "Kontooverførsel"): "Assets:Transfer",
-    ("Vis ikke", "Ignorer"): "Expenses:Other",
-    # Empty categories
-    ("", ""): "Expenses:Other",
-}
 
 
 @dataclass(frozen=True)
@@ -189,7 +81,8 @@ def sanitize_tag(tag: str) -> str:
     return tag
 
 
-def read_spiir_rows():
+# yield SpiirRow instances from all CSV files in SPIIR_DIR, sorted by filename
+def read_spiir_rows() -> Iterator[SpiirRow]:
     """Read all CSV files and yield SpiirRow instances."""
     for csv_file in sorted(SPIIR_DIR.glob("*.csv")):
         with open(csv_file, encoding="utf-8-sig") as f:
@@ -226,13 +119,16 @@ def read_spiir_rows():
                 )
 
 
+import rules
+
+
 def spiir_row_to_transaction(row: SpiirRow) -> Transaction:
     """Convert a SpiirRow to a beancount Transaction."""
-    asset_account = ACCOUNT_MAP.get(
-        row.account_name, f"Assets:Checking:{row.account_name}"
+    asset_account = constants.ACCOUNT_MAP.get(
+        row.account_name, f"Assets:Checking:Unknown"
     )
-    category_account = CATEGORY_MAP.get(
-        (row.main_category_name, row.category_name), "Expenses:Uncategorized"
+    category_account = rules.classify_account(
+        asset_account, row.description, row.category_name
     )
 
     tags = {"spiir"}
@@ -242,6 +138,7 @@ def spiir_row_to_transaction(row: SpiirRow) -> Transaction:
             if sanitized:
                 tags.add(sanitized)
 
+    # TODO: metadata can include linenumber to original file for easier debugging of classification rules, e.g.:
     meta = new_metadata("<import>", 0)
     meta["spiir-id"] = row.id
 
@@ -303,7 +200,9 @@ def compute_opening_balances(rows: list[SpiirRow]) -> list[tuple[str, Decimal, d
     """
     first_by_account: dict[str, SpiirRow] = {}
     for row in rows:
-        acct = ACCOUNT_MAP.get(row.account_name, f"Assets:Checking:{row.account_name}")
+        acct = constants.ACCOUNT_MAP.get(
+            row.account_name, f"Assets:Checking:{row.account_name}"
+        )
         if acct not in first_by_account or row.date < first_by_account[acct].date:
             first_by_account[acct] = row
 
@@ -368,12 +267,10 @@ def collect_accounts(
             accounts[account] = d
 
     for row in rows:
-        asset_acct = ACCOUNT_MAP.get(
+        asset_acct = constants.ACCOUNT_MAP.get(
             row.account_name, f"Assets:Checking:{row.account_name}"
         )
-        cat_acct = CATEGORY_MAP.get(
-            (row.main_category_name, row.category_name), "Expenses:Uncategorized"
-        )
+        cat_acct = rules.CATEGORY_MAP.get(row.category_name, "Expenses:Other")
         track(asset_acct, row.date)
         track(cat_acct, row.date)
 

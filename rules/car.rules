@@ -1,17 +1,6 @@
 
-## BIL
-
-if (apcoa|EasyPark|parkman|EASY PARK|Parkering|Q-Park)
-    account2 expenses:car:parking
-
-if Autotal
-    account2 expenses:car:service
-
 if (A-H Cykler|cykel|bike)
     account2 expenses:bike:maintenance
-
-if (Uno-X|Q8 Service|shell|OIL! tank go|INGO|circlek|circle k)
-    account2 expenses:car:gas
 
 if freetrailer
     account2 expenses:car:freetrailer
