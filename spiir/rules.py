@@ -313,7 +313,7 @@ def transfers_rules(
 def _classify_rules(
     asset_account: str,
     r : constants.SpiirRow,
-    *rules: Callable[[str, SpiirRow], Optional[str]],
+    *rules: Callable[[str, constants.SpiirRow], Optional[str]],
 ) -> str:
     for rule in rules:
         result = rule(asset_account, r)
